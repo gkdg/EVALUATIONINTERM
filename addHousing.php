@@ -9,36 +9,48 @@
 </head>
 
 <body>
-    <h2>ADVERTISE A HOUSE </h2>
+    <h1>BIGGEST REAL ESTATE AGENCY</h1>
+    <div>
+        <nav>
+            <ul>
+                <li><a href="addHousing.php">Advertise a House</a></li>
+                <li><a href="houses.php">Display Houses</a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
 
-    <form enctype="multipart/form-data" action="" method='POST'>
-        <input type="text" name="title" placeholder="title of the house">
-        <br>
-        <input type="text" name="address" placeholder="address of the house">
-        <br>
-        <input type="text" name="city" placeholder="city of the house">
-        <br>
-        <input type="text" name="postCode" placeholder="postal code">
-        <br>
-        <input type="int" name="area" placeholder="metre square of the house">
-        <br>
-        <input type="int" name="price" placeholder="price">
-        <br>
-        <select name="type">
-            <option name="default" value="selectType">select a type</option>
-            <option name="typeRent" value="rent">rent</option>
-            <option name="typeSale" value="sale">sale</option>
-        </select>
-        <br>
-        <textarea name="description" value="houseDescription" cols="30" rows="10" placeholder="description"></textarea>
-        <br>
-        <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-        Choose a photo:<br><input name="photoUpload" type="file" />
-        <br>
-        <input type="submit" name="register" value="Register">
-        <br>
+</html>
+<h2>ADVERTISE A HOUSE </h2>
 
-    </form>
+<form enctype="multipart/form-data" action="" method='POST'>
+    <input type="text" name="title" placeholder="title of the house" required>
+    <br>
+    <input type="text" name="address" placeholder="address of the house" required>
+    <br>
+    <input type="text" name="city" placeholder="city of the house" required>
+    <br>
+    <input type="text" name="postCode" placeholder="postal code" required>
+    <br>
+    <input type="int" name="area" placeholder="metre square of the house" required>
+    <br>
+    <input type="int" name="price" placeholder="price" required>
+    <br>
+    <select name="type">
+        <option name="default" value="selectType">select a type</option>
+        <option name="typeRent" value="rent">rent</option>
+        <option name="typeSale" value="sale">sale</option>
+    </select>
+    <br>
+    <textarea name="description" value="houseDescription" cols="30" rows="10" placeholder="description"></textarea>
+    <br>
+    <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+    Choose a photo:<br><input name="photoUpload" type="file" />
+    <br>
+    <input type="submit" name="register" value="Register">
+    <br>
+
+</form>
 
 </body>
 
@@ -59,8 +71,9 @@ if ($conn) {
         $address = $_POST['address'];
         $city = $_POST['city'];
         $postCode = $_POST['postCode'];
-        $area = $_POST['area'];
-        $price = $_POST['price'];
+        echo $_POST['postCode'] . '<br>';
+        $area = (int) $_POST['area'];
+        $price = (int) $_POST['price'];
         $type = $_POST['type'];
         $photo = $imgFolder;
         $description = $_POST['description'];
@@ -78,7 +91,7 @@ if ($conn) {
             while ($db_record = mysqli_fetch_assoc($resultID)) {
                 $idForPath = $db_record['id_housing'];
             }
-            $registeredPhotoPath = $imgFolder . $idForPath . basename($_FILES['photoUpload']['name']);;
+            $registeredPhotoPath = $imgFolder . $idForPath . basename($_FILES['photoUpload']['name']);
             $querryPhoto = "UPDATE housing
             SET photo = '$registeredPhotoPath'
             WHERE id_housing = '$idForPath'";
