@@ -71,7 +71,6 @@ if ($conn) {
         $address = $_POST['address'];
         $city = $_POST['city'];
         $postCode = $_POST['postCode'];
-        echo $_POST['postCode'] . '<br>';
         $area = (int) $_POST['area'];
         $price = (int) $_POST['price'];
         $type = $_POST['type'];
